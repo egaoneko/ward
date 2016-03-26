@@ -604,6 +604,11 @@ class MonthPost(models.Model):
         :param post: post
         :return:
         """
+        now = timezone.now()
+        diff = now - post.created_time
+        if diff.days > 30:
+            return
+
         check(post.group)
         if MonthPost.objects.filter(post=post).exists():
             return
@@ -640,6 +645,11 @@ class MonthComment(models.Model):
         :param comment: comment
         :return:
         """
+        now = timezone.now()
+        diff = now - comment.created_time
+        if diff.days > 30:
+            return
+
         check(comment.group)
         if MonthComment.objects.filter(comment=comment).exists():
             return
