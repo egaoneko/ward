@@ -460,6 +460,7 @@ def update_group_feed(group, query):
                 res = store_feed(feed, group, True)
             except Exception as e:
                 logger.error('Fail to update by exception : %s', e)
+                res = None
 
             # if post isn't updated, exit
             if not res:

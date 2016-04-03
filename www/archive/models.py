@@ -604,10 +604,10 @@ class MonthPost(models.Model):
         :param post: post
         :return:
         """
-        now = timezone.now()
-        diff = now - post.created_time
-        if diff.days > 30:
-            return
+        # now = timezone.now()
+        # diff = now - post.created_time
+        # if diff.days > 30:
+        #     return
 
         check(post.group)
         if MonthPost.objects.filter(post=post).exists():
@@ -645,10 +645,10 @@ class MonthComment(models.Model):
         :param comment: comment
         :return:
         """
-        now = timezone.now()
-        diff = now - comment.created_time
-        if diff.days > 30:
-            return
+        # now = timezone.now()
+        # diff = now - comment.created_time
+        # if diff.days > 30:
+        #     return
 
         check(comment.group)
         if MonthComment.objects.filter(comment=comment).exists():
@@ -692,3 +692,5 @@ def check(group):
 
         for oj in MonthComment.objects.filter(group=group, created_time__lt=date):
             oj.delete()
+        GroupStatisticsUpdateList.update(group=group, method='month_content')
+
